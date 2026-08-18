@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#12372a" />
+    <meta name="description" content="Submit your college football Top 25 ballot to Ducks Rising." />
+    <title>Ducks Rising — Top 25 Ballot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="brand" href="https://www.ducksrising.com/" aria-label="Ducks Rising home">
+          <img src="assets/ducks-rising-logo.png" alt="Ducks Rising" />
+        </a>
+        <div class="week-pill"><span></span><b id="ballot-label">PRESEASON BALLOT</b></div>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div class="hero-copy">
+            <p class="eyebrow">THE PEOPLE'S POLL</p>
+            <h1>BUILD YOUR<br /><em>TOP 25.</em></h1>
+            <p class="hero-description">Rank the best teams in college football. Your ballot joins the Ducks Rising community poll.</p>
+          </div>
+          <div class="hero-rank" aria-hidden="true"><span>TOP</span>25</div>
+        </section>
+
+        <section class="ballot-layout">
+          <aside class="ballot-info">
+            <div class="step-number">01</div>
+            <h2>Your info</h2>
+            <p>Just enough to identify your ballot. We won't publish your email.</p>
+            <label>
+              <span>Name <b>*</b></span>
+              <input id="voter-name" type="text" autocomplete="name" placeholder="Your name" maxlength="80" required />
+            </label>
+            <label>
+              <span>Email <b>*</b></span>
+              <input id="voter-email" type="email" autocomplete="email" placeholder="you@example.com" maxlength="120" required />
+            </label>
+            <div class="rules">
+              <span class="rules-icon">25</span>
+              <p><strong>Rank all 25</strong><br />Each team can appear once.</p>
+            </div>
+          </aside>
+
+          <section class="ranker" aria-labelledby="ranker-title">
+            <div class="ranker-heading">
+              <div>
+                <span class="step-number">02</span>
+                <h2 id="ranker-title">Make your picks</h2>
+              </div>
+              <div class="progress-wrap">
+                <span><b id="pick-count">0</b> / 25 selected</span>
+                <div class="progress-track"><i id="progress-bar"></i></div>
+              </div>
+            </div>
+
+            <div id="rank-list" class="rank-list"></div>
+
+            <div class="submit-row">
+              <p id="form-message" role="status" aria-live="polite">Complete all 25 rankings to submit.</p>
+              <button id="submit-button" type="button" disabled>
+                Submit ballot <span>→</span>
+              </button>
+            </div>
+          </section>
+        </section>
+      </main>
+
+      <footer>
+        <img src="assets/ducks-rising-logo.png" alt="Ducks Rising" />
+        <p>Independent community rankings. Not affiliated with the NCAA.</p>
+      </footer>
+    </div>
+
+    <dialog id="success-dialog">
+      <div class="success-mark">✓</div>
+      <p class="eyebrow">BALLOT RECEIVED</p>
+      <h2>Your Top 25 is in.</h2>
+      <p>Thanks for helping shape the Ducks Rising community poll.</p>
+      <button id="close-dialog" type="button">Done</button>
+    </dialog>
+
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,145 @@
+:root {
+  --green-950: #003f2d;
+  --green-900: #00583e;
+  --green-800: #00794f;
+  --yellow: #fee11a;
+  --cream: #f4f4f1;
+  --paper: #ffffff;
+  --ink: #111111;
+  --muted: #666666;
+  --line: #d8d8d5;
+  --danger: #ad2e24;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--cream);
+  font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+button, input, select { font: inherit; }
+button { cursor: pointer; }
+
+.page-shell { min-height: 100vh; overflow: hidden; }
+.site-header {
+  height: 86px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(22px, 5vw, 76px);
+  color: white;
+  background: #050505;
+  border-bottom: 1px solid rgba(255,255,255,.13);
+}
+.brand { display: flex; align-items: center; color: inherit; text-decoration: none; }
+.brand img { display: block; width: 160px; height: auto; }
+.week-pill { display: flex; align-items: center; gap: 9px; font: 700 12px/1 "Inter"; letter-spacing: .14em; }
+.week-pill span { width: 7px; height: 7px; border-radius: 50%; background: var(--yellow); box-shadow: 0 0 0 5px rgba(245,207,33,.14); }
+
+.hero {
+  min-height: 390px;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(300px, .9fr);
+  padding: 64px clamp(22px, 8vw, 130px) 72px;
+  color: white;
+  background-color: var(--green-950);
+  background-image: linear-gradient(90deg, rgba(0,43,30,.96) 0%, rgba(0,58,39,.82) 53%, rgba(0,55,36,.2) 100%), url("assets/autzen-hero.png");
+  background-position: center;
+  background-size: cover;
+}
+.hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 8px; background: var(--yellow); }
+.hero-copy { position: relative; z-index: 2; }
+.eyebrow { margin: 0 0 12px; color: var(--yellow); font: 800 13px/1 "Inter"; letter-spacing: .2em; }
+.hero h1 { margin: 0; font: 700 clamp(66px, 9vw, 116px)/.84 "Oswald"; letter-spacing: -.035em; }
+.hero h1 em { color: var(--yellow); font-style: italic; }
+.hero-description { max-width: 510px; margin: 28px 0 0; color: #bed0c7; font-size: 17px; line-height: 1.55; }
+.hero-rank { position: absolute; right: clamp(30px, 9vw, 145px); bottom: 47px; color: var(--yellow); font: 700 clamp(145px, 21vw, 300px)/.72 "Oswald"; letter-spacing: -.08em; opacity: .94; text-shadow: 0 8px 28px rgba(0,0,0,.28); }
+.hero-rank span { display: block; margin: 0 0 12px 13px; color: white; font: 600 18px/1 "Oswald"; letter-spacing: .5em; }
+
+.ballot-layout {
+  width: min(1180px, calc(100% - 44px));
+  margin: 64px auto 80px;
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: clamp(40px, 6vw, 90px);
+  align-items: start;
+}
+.step-number { color: var(--green-800); font: 700 13px/1 "Oswald"; letter-spacing: .12em; }
+.ballot-info h2, .ranker h2, dialog h2 { margin: 5px 0 10px; color: var(--ink); font: 700 34px/1 "Oswald"; text-transform: uppercase; }
+.ballot-info > p { margin: 0 0 30px; color: var(--muted); font-size: 14px; line-height: 1.55; }
+label { display: block; margin-bottom: 18px; }
+label > span { display: block; margin-bottom: 8px; font-size: 12px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
+label b { color: var(--danger); }
+input {
+  width: 100%; height: 50px; padding: 0 14px; border: 1px solid var(--line); border-radius: 3px;
+  color: var(--ink); background: var(--paper); outline: none; transition: border .2s, box-shadow .2s;
+}
+input:focus, select:focus { border-color: var(--green-800); box-shadow: 0 0 0 3px rgba(22,75,56,.1); }
+.rules { display: flex; align-items: center; gap: 13px; margin-top: 28px; padding: 16px; background: #e8e7d9; border-left: 3px solid var(--yellow); }
+.rules-icon { flex: 0 0 36px; height: 36px; display: grid; place-items: center; color: #111; background: var(--yellow); font: 700 18px/1 "Oswald"; }
+.rules p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.4; }
+.rules strong { color: var(--ink); }
+
+.ranker { min-width: 0; }
+.ranker-heading { display: flex; justify-content: space-between; gap: 24px; align-items: end; margin-bottom: 24px; }
+.ranker-heading h2 { margin-bottom: 0; }
+.progress-wrap { width: 170px; text-align: right; color: var(--muted); font-size: 12px; }
+.progress-wrap b { color: var(--green-800); }
+.progress-track { height: 5px; margin-top: 8px; overflow: hidden; background: #daddd6; border-radius: 5px; }
+.progress-track i { display: block; width: 0; height: 100%; background: var(--yellow); transition: width .25s ease; }
+.rank-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 12px; }
+.rank-row { display: grid; grid-template-columns: 44px 1fr; min-width: 0; height: 56px; border: 1px solid var(--line); background: var(--paper); transition: border .2s, transform .2s; }
+.rank-row:focus-within { border-color: var(--green-800); transform: translateY(-1px); }
+.rank-number { display: grid; place-items: center; color: white; background: #111; font: 700 20px/1 "Oswald"; }
+.rank-row:nth-child(-n+5) .rank-number { color: #111; background: var(--yellow); }
+select { width: 100%; min-width: 0; border: 0; padding: 0 35px 0 14px; color: var(--ink); background-color: transparent; outline: none; font-weight: 600; appearance: none; background-image: linear-gradient(45deg, transparent 50%, #7a837e 50%), linear-gradient(135deg, #7a837e 50%, transparent 50%); background-position: calc(100% - 17px) 25px, calc(100% - 12px) 25px; background-size: 5px 5px; background-repeat: no-repeat; text-overflow: ellipsis; }
+select.placeholder { color: #9aa19d; font-weight: 400; }
+.submit-row { display: flex; align-items: center; justify-content: space-between; gap: 25px; margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--line); }
+.submit-row p { margin: 0; color: var(--muted); font-size: 12px; }
+.submit-row p.error { color: var(--danger); }
+.submit-row button, dialog button { min-width: 190px; height: 52px; border: 0; padding: 0 22px; color: #111; background: var(--yellow); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; transition: background .2s, opacity .2s, transform .2s; }
+.submit-row button:hover:not(:disabled), dialog button:hover { background: #fff06b; transform: translateY(-1px); }
+.submit-row button span { margin-left: 15px; color: #111; font-size: 20px; }
+.submit-row button:disabled { cursor: not-allowed; opacity: .4; }
+
+footer { min-height: 130px; display: flex; align-items: center; justify-content: space-between; gap: 25px; padding: 30px clamp(22px, 5vw, 76px); color: #8b8b8b; background: #050505; }
+footer img { width: 145px; height: auto; }
+footer p { margin: 0; font-size: 11px; }
+
+dialog { max-width: 440px; border: 0; padding: 45px; text-align: center; color: var(--muted); background: var(--paper); box-shadow: 0 24px 80px rgba(0,0,0,.28); }
+dialog::backdrop { background: rgba(4,25,18,.78); backdrop-filter: blur(4px); }
+dialog .success-mark { width: 60px; height: 60px; display: grid; place-items: center; margin: 0 auto 22px; color: var(--green-950); background: var(--yellow); border-radius: 50%; font-size: 28px; font-weight: 900; }
+dialog h2 { font-size: 38px; }
+dialog > p:not(.eyebrow) { line-height: 1.55; }
+dialog button { margin-top: 18px; }
+
+@media (max-width: 780px) {
+  .site-header { height: 72px; }
+  .week-pill b { display: none; }
+  .hero { min-height: 360px; display: block; padding-top: 52px; }
+  .hero-rank { opacity: .45; }
+  .hero-description { max-width: 82%; }
+  .ballot-layout { grid-template-columns: 1fr; margin-top: 45px; }
+  .ballot-info { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
+  .ballot-info > .step-number, .ballot-info > h2, .ballot-info > p, .rules { grid-column: 1 / -1; }
+  .rules { margin-top: 8px; }
+}
+@media (max-width: 560px) {
+  .brand img { width: 132px; }
+  .hero { min-height: 330px; padding-top: 44px; }
+  .hero h1 { font-size: 65px; }
+  .hero-description { max-width: 100%; font-size: 15px; }
+  .ballot-layout { width: min(100% - 28px, 1180px); }
+  .ballot-info { display: block; }
+  .ranker-heading { align-items: start; }
+  .ranker-heading h2 { font-size: 29px; }
+  .progress-wrap { width: 110px; }
+  .rank-list { grid-template-columns: 1fr; }
+  .submit-row { align-items: stretch; flex-direction: column; }
+  .submit-row button { width: 100%; }
+  footer { align-items: start; flex-direction: column; }
+}
