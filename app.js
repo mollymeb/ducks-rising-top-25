@@ -21,37 +21,102 @@ const submitButton = document.querySelector("#submit-button");
 const messageEl = document.querySelector("#form-message");
 const nameInput = document.querySelector("#voter-name");
 const emailInput = document.querySelector("#voter-email");
+const websiteInput = document.querySelector("#website");
 const dialog = document.querySelector("#success-dialog");
 
 document.querySelector("#ballot-label").textContent = config.ballotLabel || "Preseason Ballot";
 
 function buildRanker() {
-  const options = TEAMS.map(team => `<option value="${team}">${team}</option>`).join("");
   rankList.innerHTML = Array.from({ length: 25 }, (_, index) => `
-    <label class="rank-row" aria-label="Rank ${index + 1}">
+    <div class="rank-row" aria-label="Rank ${index + 1}">
       <span class="rank-number">${index + 1}</span>
-      <select class="team-select placeholder" data-rank="${index + 1}">
-        <option value="">Select a team</option>${options}
-      </select>
-    </label>
+      <div class="team-combobox">
+        <input class="team-input" data-rank="${index + 1}" type="text" placeholder="Search for a team" autocomplete="off"
+          role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="team-options-${index + 1}" />
+        <ul class="team-options" id="team-options-${index + 1}" role="listbox"></ul>
+      </div>
+    </div>
   `).join("");
-  document.querySelectorAll(".team-select").forEach(select => select.addEventListener("change", updateRanker));
+  document.querySelectorAll(".team-input").forEach(input => {
+    input.addEventListener("input", () => {
+      input.dataset.team = "";
+      showTeamOptions(input);
+      updateRanker();
+    });
+    input.addEventListener("focus", () => showTeamOptions(input));
+    input.addEventListener("keydown", handleTeamKeys);
+    input.addEventListener("blur", () => setTimeout(() => closeTeamOptions(input), 120));
+  });
 }
 
 function getPicks() {
-  return [...document.querySelectorAll(".team-select")].map(select => select.value);
+  return [...document.querySelectorAll(".team-input")].map(input => input.dataset.team || "");
+}
+
+function showTeamOptions(input) {
+  const query = input.value.trim().toLowerCase();
+  const used = new Set(getPicks().filter(team => team && team !== input.dataset.team));
+  const matches = TEAMS.filter(team => !used.has(team) && team.toLowerCase().includes(query)).slice(0, 12);
+  const list = input.nextElementSibling;
+  list.innerHTML = matches.length
+    ? matches.map(team => `<li role="option" tabindex="-1" data-team="${team}">${team}</li>`).join("")
+    : `<li class="no-results">No teams found</li>`;
+  list.querySelectorAll("[data-team]").forEach(option => {
+    option.addEventListener("mousedown", event => {
+      event.preventDefault();
+      selectTeam(input, option.dataset.team);
+    });
+  });
+  input.setAttribute("aria-expanded", "true");
+  list.classList.add("open");
+}
+
+function closeTeamOptions(input) {
+  input.setAttribute("aria-expanded", "false");
+  input.nextElementSibling.classList.remove("open");
+  if (!input.dataset.team) input.value = "";
+}
+
+function selectTeam(input, team) {
+  input.value = team;
+  input.dataset.team = team;
+  closeTeamOptions(input);
+  updateRanker();
+  const inputs = [...document.querySelectorAll(".team-input")];
+  const nextInput = inputs[inputs.indexOf(input) + 1];
+  if (nextInput && !nextInput.dataset.team) nextInput.focus();
+}
+
+function handleTeamKeys(event) {
+  const input = event.currentTarget;
+  const list = input.nextElementSibling;
+  let options = [...list.querySelectorAll("[data-team]")];
+  let active = list.querySelector(".active");
+  let index = options.indexOf(active);
+
+  if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+    event.preventDefault();
+    if (!list.classList.contains("open")) {
+      showTeamOptions(input);
+      options = [...list.querySelectorAll("[data-team]")];
+      active = list.querySelector(".active");
+      index = options.indexOf(active);
+    }
+    const direction = event.key === "ArrowDown" ? 1 : -1;
+    index = Math.max(0, Math.min(options.length - 1, index + direction));
+    options.forEach(option => option.classList.remove("active"));
+    if (options[index]) options[index].classList.add("active");
+  } else if (event.key === "Enter" && active) {
+    event.preventDefault();
+    selectTeam(input, active.dataset.team);
+  } else if (event.key === "Escape") {
+    closeTeamOptions(input);
+  }
 }
 
 function updateRanker() {
   const picks = getPicks();
   const selected = picks.filter(Boolean);
-  const used = new Set(selected);
-  document.querySelectorAll(".team-select").forEach(select => {
-    select.classList.toggle("placeholder", !select.value);
-    [...select.options].forEach(option => {
-      option.disabled = Boolean(option.value && used.has(option.value) && option.value !== select.value);
-    });
-  });
   countEl.textContent = selected.length;
   progressEl.style.width = `${selected.length * 4}%`;
   submitButton.disabled = selected.length !== 25;
@@ -96,12 +161,13 @@ async function submitBallot() {
         email: emailInput.value.trim(),
         ballot: config.ballotLabel || "Preseason Ballot",
         picks: getPicks(),
+        website: websiteInput.value,
       }),
     });
     const result = await response.json();
     if (!result.ok) throw new Error(result.error || "Submission failed");
     dialog.showModal();
-    messageEl.textContent = "Ballot submitted. Thank you!";
+    messageEl.textContent = result.updated ? "Your previous ballot was updated." : "Ballot submitted. Thank you!";
   } catch (error) {
     messageEl.textContent = "We couldn't submit that ballot. Please try again.";
     messageEl.classList.add("error");

@@ -71,6 +71,8 @@ button { cursor: pointer; }
 .step-number { color: var(--green-800); font: 700 13px/1 "Oswald"; letter-spacing: .12em; }
 .ballot-info h2, .ranker h2, dialog h2 { margin: 5px 0 10px; color: var(--ink); font: 700 34px/1 "Oswald"; text-transform: uppercase; }
 .ballot-info > p { margin: 0 0 30px; color: var(--muted); font-size: 14px; line-height: 1.55; }
+.ballot-info .privacy-note { margin: -8px 0 20px; font-size: 11px; line-height: 1.45; }
+.form-trap { position: absolute !important; left: -10000px !important; width: 1px !important; height: 1px !important; overflow: hidden !important; }
 label { display: block; margin-bottom: 18px; }
 label > span { display: block; margin-bottom: 8px; font-size: 12px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
 label b { color: var(--danger); }
@@ -96,8 +98,16 @@ input:focus, select:focus { border-color: var(--green-800); box-shadow: 0 0 0 3p
 .rank-row:focus-within { border-color: var(--green-800); transform: translateY(-1px); }
 .rank-number { display: grid; place-items: center; color: white; background: #111; font: 700 20px/1 "Oswald"; }
 .rank-row:nth-child(-n+5) .rank-number { color: #111; background: var(--yellow); }
-select { width: 100%; min-width: 0; border: 0; padding: 0 35px 0 14px; color: var(--ink); background-color: transparent; outline: none; font-weight: 600; appearance: none; background-image: linear-gradient(45deg, transparent 50%, #7a837e 50%), linear-gradient(135deg, #7a837e 50%, transparent 50%); background-position: calc(100% - 17px) 25px, calc(100% - 12px) 25px; background-size: 5px 5px; background-repeat: no-repeat; text-overflow: ellipsis; }
-select.placeholder { color: #9aa19d; font-weight: 400; }
+.team-combobox { position: relative; min-width: 0; }
+.team-input { height: 54px; border: 0; box-shadow: none; background: transparent; font-weight: 600; }
+.team-input::placeholder { color: #9aa19d; font-weight: 400; }
+.team-input:focus { border: 0; box-shadow: none; }
+.team-options { display: none; position: absolute; z-index: 20; top: calc(100% + 5px); left: -45px; right: 0; max-height: 255px; margin: 0; padding: 5px; overflow-y: auto; list-style: none; background: white; border: 1px solid var(--line); box-shadow: 0 12px 30px rgba(0,0,0,.16); }
+.team-options.open { display: block; }
+.team-options li { padding: 10px 12px; color: var(--ink); font-size: 13px; font-weight: 600; cursor: pointer; }
+.team-options li:hover, .team-options li.active { color: white; background: var(--green-800); }
+.team-options .no-results { color: var(--muted); cursor: default; font-weight: 400; }
+.team-options .no-results:hover { color: var(--muted); background: transparent; }
 .submit-row { display: flex; align-items: center; justify-content: space-between; gap: 25px; margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--line); }
 .submit-row p { margin: 0; color: var(--muted); font-size: 12px; }
 .submit-row p.error { color: var(--danger); }
