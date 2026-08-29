@@ -56,7 +56,7 @@ function getPicks() {
 function showTeamOptions(input) {
   const query = input.value.trim().toLowerCase();
   const used = new Set(getPicks().filter(team => team && team !== input.dataset.team));
-  const matches = TEAMS.filter(team => !used.has(team) && team.toLowerCase().includes(query)).slice(0, 12);
+  const matches = TEAMS.filter(team => !used.has(team) && team.toLowerCase().includes(query));
   const list = input.nextElementSibling;
   list.innerHTML = matches.length
     ? matches.map(team => `<li role="option" tabindex="-1" data-team="${team}">${team}</li>`).join("")
