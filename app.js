@@ -6,7 +6,7 @@ const TEAMS = [
   "Georgia", "Georgia Southern", "Georgia State", "Georgia Tech", "Hawai'i", "Houston", "Illinois", "Indiana", "Iowa", "Iowa State",
   "Jacksonville State", "James Madison", "Kansas", "Kansas State", "Kent State", "Kentucky", "Kennesaw State", "Liberty", "Louisiana", "Louisiana Tech", "Louisville", "LSU",
   "Marshall", "Maryland", "Memphis", "Miami (FL)", "Miami (OH)", "Michigan", "Michigan State", "Middle Tennessee", "Minnesota", "Mississippi State", "Missouri", "Missouri State",
-  "Navy", "NC State", "Nebraska", "Nevada", "New Mexico", "New Mexico State", "North Carolina", "North Texas", "Northern Illinois", "Northwestern", "Notre Dame",
+  "Navy", "NC State", "Nebraska", "Nevada", "New Mexico", "New Mexico State", "North Carolina", "North Dakota", "North Texas", "Northern Illinois", "Northwestern", "Notre Dame",
   "Ohio", "Ohio State", "Oklahoma", "Oklahoma State", "Old Dominion", "Ole Miss", "Oregon", "Oregon State",
   "Penn State", "Pittsburgh", "Purdue", "Rice", "Rutgers", "Sam Houston", "San Diego State", "San Jose State", "SMU", "South Alabama", "South Carolina", "South Florida", "Southern Miss", "Stanford", "Syracuse",
   "TCU", "Temple", "Tennessee", "Texas", "Texas A&M", "Texas State", "Texas Tech", "Toledo", "Troy", "Tulane", "Tulsa", "UAB", "UCF", "UCLA", "UL Monroe", "UMass", "UNLV", "USC", "UTEP", "UTSA", "Utah", "Utah State",
