@@ -36,8 +36,6 @@ button { cursor: pointer; }
 }
 .brand { display: flex; align-items: center; color: inherit; text-decoration: none; }
 .brand img { display: block; width: 160px; height: auto; }
-.week-pill { display: flex; align-items: center; gap: 9px; font: 700 12px/1 "Inter"; letter-spacing: .14em; }
-.week-pill span { width: 7px; height: 7px; border-radius: 50%; background: var(--yellow); box-shadow: 0 0 0 5px rgba(245,207,33,.14); }
 
 .hero {
   min-height: 390px;
@@ -129,7 +127,6 @@ dialog button { margin-top: 18px; }
 
 @media (max-width: 780px) {
   .site-header { height: 72px; }
-  .week-pill b { display: none; }
   .hero { min-height: 360px; display: block; padding-top: 52px; }
   .hero-rank { opacity: .45; }
   .hero-description { max-width: 82%; }

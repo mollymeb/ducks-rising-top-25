@@ -24,8 +24,6 @@ const emailInput = document.querySelector("#voter-email");
 const websiteInput = document.querySelector("#website");
 const dialog = document.querySelector("#success-dialog");
 
-document.querySelector("#ballot-label").textContent = config.ballotLabel || "Preseason Ballot";
-
 function buildRanker() {
   rankList.innerHTML = Array.from({ length: 25 }, (_, index) => `
     <div class="rank-row" aria-label="Rank ${index + 1}">
